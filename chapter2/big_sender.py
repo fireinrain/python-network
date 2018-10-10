@@ -9,6 +9,7 @@
 @contact: lzycoder.vip@gmail.com
 @license: (C) Copyright 2015-2018, Node Supply Chain Manager Corporation Limited.
 """
+# IN 模块在win的平台是没有的，只有在linux平台才有
 import IN, socket, sys
 
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)

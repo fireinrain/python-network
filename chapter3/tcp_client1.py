@@ -17,6 +17,8 @@ from chapter3.tools import recvall
 
 def tcp_client(host, port):
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    # 为该程序绑定端口
+    sock.bind(('127.0.0.1', 8000))
     sock.connect((host, port))
     print(f'客户端激活套接字：{sock.getsockname()}')
 
@@ -28,4 +30,4 @@ def tcp_client(host, port):
 
 
 if __name__ == '__main__':
-    tcp_client('127.0.0.1', 8000)
+    tcp_client('127.0.0.1', 9000)

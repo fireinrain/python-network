@@ -16,6 +16,13 @@ import ssl
 def ssl_server(host, port, certfile, catfile=None):
     purpose = ssl.Purpose.CLIENT_AUTH
     context = ssl.create_default_context(purpose, cafile=catfile)
+    context.verify_mode = ssl.CERT_NONE
+
+    context.options |= ssl.OP_CIPHER_SERVER_PREFERENCE
+    context.options |= ssl.OP_NO_COMPRESSION
+    context.options |= ssl.OP_SINGLE_DH_USE
+    context.options |= ssl.OP_SINGLE_ECDH_USE
+    context.set_ciphers('EDC+AES128')
     context.load_cert_chain(certfile)
 
     listener = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -33,4 +40,4 @@ def ssl_server(host, port, certfile, catfile=None):
 
 
 if __name__ == '__main__':
-    ssl_server('127.0.0.1', 8000)
+    ssl_server('127.0.0.1', 8000,certfile=None)

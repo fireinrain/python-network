@@ -10,6 +10,7 @@
 @license: (C) Copyright 2015-2018, Node Supply Chain Manager Corporation Limited.
 """
 import time
+from wsgiref.simple_server import make_server
 
 
 def app(environ, start_reponse):
@@ -31,4 +32,8 @@ def app(environ, start_reponse):
         yield time.ctime().encode('ascii')
 
 
-
+if __name__ == '__main__':
+    http_server = make_server('', 8000, app)
+    host, port = http_server.socket.getsockname()
+    print(f"server on:{host} prot:{port}")
+    http_server.serve_forever()

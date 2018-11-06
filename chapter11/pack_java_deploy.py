@@ -20,7 +20,7 @@ if __name__ == '__main__':
     # 基础依赖
     base_source_path = ""
 
-    source_path = "F:/IdeaProjects/mydevops-play".replace("/","\\")
+    source_path = "F:/IdeaProjects/mydevops-play".replace("/", "\\")
 
     # 传入服务器目录
     # server_path = sys.argv[2]
@@ -48,7 +48,11 @@ if __name__ == '__main__':
         raise IOError
     source_path_list = os.listdir(source_path)
 
-    #
+    # print(f"{source_path_list}")
+    # 排除jar_output
+    source_path_list = [i for i in source_path_list if i != "jar_temp"]
+    # print(f"{source_path_list}")
+    print(f"-----------------------------------------------")
 
     for source in source_path_list:
         source_dir = source_path + os.sep + source
@@ -57,18 +61,18 @@ if __name__ == '__main__':
         print(f"即将进行打包<<<-------")
         # os.system("mvn package")
         print(f"{source_dir}:打包完成!!!")
-        files_list = os.listdir(source_dir)
+        files_list = os.listdir(source_dir + os.sep + "target")
 
         jar_files = [source_dir + os.sep + "target" + os.sep + i for i in files_list if i.endswith(".jar")]
         # 判断最大的jar
-        sorted(jar_files, key=lambda x: os.path.getsize(x))
+        jar_files = sorted(jar_files, key=lambda x: os.path.getsize(x), reverse=True)
         print(jar_files)
 
         # 尝试复制jar包到外层临时目录
-        # shutil.copyfile()
+        shutil.copy(jar_files[0],jar_output_dir)
         print(f"复制jar包到外层临时目录成功")
+        print(f"------------------------------------------")
 
-    print(source_path_list)
 
     print(os.path.getsize("F:/IdeaProjects/mydevops-play/boot2/target/target.jar"))
     # print(server_path)

@@ -12,6 +12,7 @@
 import os
 import sys
 import shutil
+import paramiko
 
 if __name__ == '__main__':
     # 传入源码路径
@@ -54,6 +55,8 @@ if __name__ == '__main__':
     # print(f"{source_path_list}")
     print(f"-----------------------------------------------")
 
+    target_jars_names = []
+
     for source in source_path_list:
         source_dir = source_path + os.sep + source
         os.chdir(source_dir)
@@ -67,13 +70,27 @@ if __name__ == '__main__':
         # 判断最大的jar
         jar_files = sorted(jar_files, key=lambda x: os.path.getsize(x), reverse=True)
         print(jar_files)
-
+        target_jars_names.append(jar_files[0].split("\\")[-1])
         # 尝试复制jar包到外层临时目录
-        shutil.copy(jar_files[0],jar_output_dir)
+        shutil.copy(jar_files[0], jar_output_dir)
         print(f"复制jar包到外层临时目录成功")
         print(f"------------------------------------------")
 
+    # 连接主机 进行scp 拷贝，并尝试启动
 
+    try:
+        ssh = paramiko.SSHClient()
+        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        ssh.connect(hostname='192.168.11.118', port=22, username="root", password="sunriseme1994")
+
+        command_list = ["cd /home", "ls"]
+        for c in command_list:
+            stdin, stdout, stderr = ssh.exec_command("")
+            print(stderr.readlines())
+    except Exception as e:
+        print(f"exception:{repr(e)}")
+
+    print(f"target_jars_names:{target_jars_names}")
     print(os.path.getsize("F:/IdeaProjects/mydevops-play/boot2/target/target.jar"))
     # print(server_path)
     # os.system("ls -a")

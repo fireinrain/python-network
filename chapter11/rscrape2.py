@@ -39,3 +39,6 @@ class WebdriverVisitor:
 
 if __name__ == '__main__':
     main(WebdriverVisitor().GET)
+    # a = "I am 刘朝阳"
+    # a = bytes(a.encode("utf-8"))
+    # print(len(a))

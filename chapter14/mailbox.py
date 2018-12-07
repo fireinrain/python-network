@@ -4,7 +4,7 @@
 @desc:
 @software: pycharm
 @file: mailbox.py
-@time: 2018/12/6 22:30
+@time: 2018/12/6
 @author: liuzy
 @contact: lzycoder.vip@gmail.com
 @license: (C) Copyright 2015-2018, Node Supply Chain Manager Corporation Limited.

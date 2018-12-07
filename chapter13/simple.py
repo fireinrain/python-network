@@ -4,7 +4,7 @@
 @desc:
 @software: pycharm
 @file: simple.py
-@time: 2018/12/5 21:21
+@time: 2018/12/5
 @author: liuzy
 @contact: lzycoder.vip@gmail.com
 @license: (C) Copyright 2015-2018, Node Supply Chain Manager Corporation Limited.
